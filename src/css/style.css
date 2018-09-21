@@ -1,0 +1,106 @@
+.registrationPadding {
+    padding-left: 40px;
+    padding-right: 40px;
+    padding-top: 20px;
+    width: 70%;
+}
+
+.registrationLabel {
+    text-align: left;
+}
+
+.overallcontainer {
+    margin-top: 10px;
+    width: 70%;
+    border-radius: 5px;
+    background-color: #ebe9e9;
+    margin-bottom: 10px;
+    display:block; 
+}
+
+.registrationContainer {
+    width: 100%;
+    border-radius: 5px;
+    background-color: #ebe9e9;
+    padding-left: 40px;
+    padding-right: 40px;
+    padding-top: 20px;
+   
+}
+
+.registrationTitleStyle {
+    width: 100%;
+    border-radius: 5px;
+    background-color: #ebe9e9;
+    font-size: 40px;
+    margin-top: 10px;
+    padding-bottom: 0px;
+    color: #a70505;
+}
+
+.registrationInfoContainer {
+    width: 100%;
+    border-radius: 5px;
+    background-color: #ebe9e9;
+    padding-left: 40px;
+    padding-right: 40px;
+    padding-top: 10px;
+    padding-bottom: 5px;
+}
+
+.infoText {
+    font-size: 16px;
+    text-align: justify;
+}
+
+.labelPadding {
+    padding-left: 10px;
+}
+
+.ulpadding {
+    padding-left: 15px;
+    padding-top: 2px;
+}
+
+.hidden {
+    display: none !important;
+}
+
+.error-text-padding {
+    padding-left: 18.1%;
+    padding-top: 40px;
+    margin:0px;
+}
+
+/* //test */
+
+.alertify .ajs-header {
+    background-color: #696969;
+    color: #ebe9e9;
+    font-size: 20px;
+}
+
+.alertify .ajs-button {
+    background-color: #696969;
+    color: #ebe9e9;
+}
+
+#loading_image{
+    background: rgba( 255, 255, 255, 0.85 );
+    display: block;
+    height: 100%;
+    position: fixed;
+    width: 100%;
+    z-index: 99;
+    align-content: center;
+}
+#loading_image img{
+    display: block;
+    /* left: 45%; */
+    margin-left: auto;
+    margin-right: auto;
+    /* position: absolute; */
+    width: 5%;
+    height: auto;
+    padding-top: 30vh;
+}
