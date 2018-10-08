@@ -1,0 +1,52 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+    
+    <title>SFG Admin Login</title>
+
+    <link rel="stylesheet" href="libraries/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="libraries/alertifyjs/css/alertify.css">
+    <link type="text/css " rel="stylesheet " media="all" href="css/style.css ">
+    <script type="text/javascript" src="libraries/jquery/jquery-3.1.js"></script>
+    <script type="text/javascript" src="libraries/bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="libraries/alertifyjs/alertify.js"></script>
+    <script type="text/javascript" src="libraries/validator.js"></script>
+    <script type="text/javascript" src="js/login.js"></script>
+    <script type="text/javascript" src="js/ws_url.js"></script>
+</head>
+
+<body>
+    <div class="container overallcontainer">
+        <h1 style="font-size: 2em">Admin Login</h1>
+        <form class="form-horizontal" id='frm_login' style="height: 30%;">
+            <div class="form-group">                
+                <label class="control-label col-xs-4" for="txt_username">Username</label>
+                <div class="col-xs-8">
+                    <input type="text" class="form-control" id="txt_username" data-error="User name is required." required>
+                    <div class="help-block with-errors"></div>
+                </div>                
+            </div>
+            <div class="form-group">
+                <label class="control-label col-xs-4" for="txt_password">Password</label>
+                <div class="col-xs-8">
+                    <input type="password" class="form-control" id="txt_password" data-error="Password is required." required>
+                    <div class="help-block with-errors"></div>
+                </div>                
+            </div>
+            <div class="form-group" style="height: 50%;">
+                <input type="submit" class="submit-btn" value="Login">
+            </div>
+            <div class="messages" id="error-messages-box"></div>
+        </form>
+    </div>
+</body>
+
+
+</html>

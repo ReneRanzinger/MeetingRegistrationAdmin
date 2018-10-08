@@ -1,3 +1,12 @@
+.submit-btn {
+    background: #c08282;
+    height: auto;
+    width: 40%;
+    max-width: 120px;
+    font: 1.5em sans-serif;
+    margin-left: 30%;
+}
+
 .registrationPadding {
     padding-left: 40px;
     padding-right: 40px;
@@ -10,11 +19,14 @@
 }
 
 .overallcontainer {
-    margin-top: 10px;
+    margin-top: 10%;
+    height: 30%;
     width: 70%;
-    border-radius: 5px;
-    background-color: #ebe9e9;
+    max-width: 300px;
+    border-radius: 10px;
+    background-color: #dac4c4;
     margin-bottom: 10px;
+    padding-bottom: 15px;
     display:block; 
 }
 
