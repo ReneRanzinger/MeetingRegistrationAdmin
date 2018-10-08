@@ -1,1 +1,1 @@
-# MeetingRegistrationClient
+# MeetingRegistrationAdmin
