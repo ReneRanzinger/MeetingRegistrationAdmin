@@ -3,7 +3,7 @@
  * @param request type of the resource requested
  * @returns URL for the requested type
  */
-function getWsUrl(request, {confCode, postRegCode, confId}) {
+function getWsUrl(request, {confCode, postRegCode, confId}={}) {
     // var ws_base = "http://glycomics.ccrc.uga.edu/meetings/api/";
 	var ws_base = "http://localhost:8080/";
     
