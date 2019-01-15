@@ -1,3 +1,45 @@
+.txt_long {
+    width: 740px;
+}
+
+.container_custom {
+    line-height: 30px;
+    margin-left: 5%;
+}
+
+input {
+    line-height: 20px;
+}
+
+.txt_area {
+    line-height: 20px;
+}
+
+.caption_label {
+    font-weight: 100;
+}
+
+.table-btn {
+    width: 100%;
+}
+
+#logo-uga {
+    width: 70px;
+    padding-right: 10px;
+}
+
+.generic-btn {
+    height: auto;
+    font: 1.2em sans-serif;
+}
+
+.generic-btn:disabled{
+  border: 1px solid #999999;
+  background-color: #cccccc;
+  color: #666666;
+}
+
+
 .submit-btn {
     background: #c08282;
     height: auto;
