@@ -35,17 +35,6 @@ function getWsUrl(request, {confCode, postRegCode, confId}) {
     }
 }
 
-/**
- * Adds the authorization token stored during login from local storage 
- * @param {object} ajaxConfig 
- * @returns Modified ajaxconfig object
- */
-function addAuthorizationToken(ajaxConfig) {
-	var token = window.localStorage.getItem("token");
-	$.extend(ajaxConfig.headers, {'Authorization': token});
-	return ajaxConfig;
-}
-
 function genericAjaxFailure(response) {
     console.log(response);
     $('#loading_image').fadeOut();
@@ -72,8 +61,13 @@ function genericAjaxFailure(response) {
 }
 
 function ajaxCall(type, ws, params, successFunction, failureFunction=genericAjaxFailure) {
-	$.ajax({
+    var token = window.localStorage.getItem("token") || '';
+    $.ajax({
         dataType: 'json',
+        headers: {
+            'Accept': 'application/json',
+            'Authorization': token
+        },
         url: getWsUrl(ws, params),
         method: type,
         success: successFunction,
