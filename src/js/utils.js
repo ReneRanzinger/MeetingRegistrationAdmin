@@ -1,3 +1,11 @@
+$(function() {    
+    $("#btn_logout").click(function(e){
+        e.preventDefault();
+        logout();
+    });
+});
+
+
 /**
  * get URL for the web service of the requested type
  * @param request type of the resource requested
@@ -35,30 +43,25 @@ function getWsUrl(request, {confCode, postRegCode, confId}={}) {
     }
 }
 
+
 function genericAjaxFailure(response) {
-    console.log(response);
     $('#loading_image').fadeOut();
-    if(response.status < 500){
-        var messageAlert = 'alert-danger';
-
-        if(response.responseJSON)
-            var messageText = response.responseJSON.errors.toString();
-        else
-            var messageText = 'Unexpected error!';
-
-        var alertBox = '<div class="alert ' + messageAlert + ' alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>' + messageText + '</div>';
-        $('#frm_login').find('.messages').html(alertBox);
-        var messagebox = document.getElementById("error-messages-box");
-        messagebox.scrollIntoView();
-    }else{
-        alertify.alert()
-        .setting({
-            'title': 'Server Error',
-            'label':'OK',
-            'message': 'Oops!! Something went wrong! Please try again later.'
-        }).show();
+    var title = "Error";
+    var message = "Unknown error!";
+    var callback = null;
+    if(response.status == 401 || response.status == 403) {
+        title = "";
+        message = "Sorry, you are not logged in. You will be redirected to the login page now.";
+        callback = logout;
     }
+    alertify.alert().setting({
+        'title': title,
+        'message': message,
+        'onok': callback
+    }).show();
+    setTimeout(callback, 3000);
 }
+
 
 function ajaxCall(type, ws, params, successFunction, failureFunction=genericAjaxFailure) {
     var token = window.localStorage.getItem("token") || '';
@@ -71,9 +74,10 @@ function ajaxCall(type, ws, params, successFunction, failureFunction=genericAjax
         url: getWsUrl(ws, params),
         method: type,
         success: successFunction,
-        failure: failureFunction
+        error: failureFunction
     });
 }
+
 
 function getUrlParameter(name) {
     name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
@@ -81,3 +85,9 @@ function getUrlParameter(name) {
     var results = regex.exec(location.search);
     return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
 };
+
+
+function logout() {
+    window.localStorage.removeItem("token");
+    window.location.href = "./admin_login.html";
+}
