@@ -2,7 +2,7 @@ $(function() {
     $('.headerlink').removeClass('active');
     $('#li_all_conf').addClass('active');
 
-    ajaxCall('GET', 'all_conferences', {}, allConferencesAjaxSuccess)
+    ajaxCall('GET', 'all_conferences', {}, null, allConferencesAjaxSuccess)
 
     $('#tbl_conferences').on('click', '.viewEditBtn', viewEditConference)
 });

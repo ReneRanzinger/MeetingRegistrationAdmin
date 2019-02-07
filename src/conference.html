@@ -41,21 +41,13 @@
         <div>
             <input type="button" class="edit-btn generic-btn" value="Edit Conference"/>        
         </div>
-        <div id="non_editable_details">
+        <div id="div_non_editable_details" class="existing_conf_only">
             <div id="div_confId" class="row">
                 <div class="col-sm-3">
                     <label class="caption_label">Conference Id:</label>
                 </div>
                 <div class="col-sm-8">
-                    <label id="lbl_confId_val">Placeholder</label>
-                </div>
-            </div>
-            <div id="div_confName" class="row">
-                <div class="col-sm-3">
-                    <label class="caption_label">Conference Name:</label>
-                </div>
-                <div class="col-sm-8">
-                    <label id="lbl_confName_val">Placeholder</label>
+                    <label id="lbl_confId_val"></label>
                 </div>
             </div>
             <div id="div_confCode" class="row">
@@ -63,7 +55,7 @@
                     <label class="caption_label">Conference Code:</label>
                 </div>
                 <div class="col-sm-8">
-                    <label id="lbl_confCode_val">Placeholder</label>
+                    <label id="lbl_confCode_val"></label>
                 </div>                    
             </div>
             <div id="div_postRegCode" class="row">
@@ -71,27 +63,35 @@
                     <label class="caption_label">Post Registration Code:</label>
                 </div>
                 <div class="col-sm-8">
-                    <label id="lbl_postRegCode_val">Placeholder</label>
+                    <label id="lbl_postRegCode_val"></label>
                 </div>
             </div>
         </div>
-        <div id="editable_details">
+        <div id="div_editable_details">
+            <div id="div_confName" class="row">
+                <div class="col-sm-3">
+                    <label class="caption_label">Conference Name:</label>
+                </div>
+                <div class="col-sm-8">
+                    <input id="txt_confName" class="editable txt_long" value="New Conference"></input>
+                </div>
+            </div>
             <div id="div_regStart" class="row">
                 <div class="col-sm-3">
                     <label class="caption_label">Registration start date:</label>
                 </div>
                 <div class="col-sm-8">
-                    <input type="text" class="date editable"/>
-                    <input type="text" class="time editable"/>
+                    <input type="text" class="date editable" value="02/20/2019"/>
+                    <input type="text" class="time editable" value="00:00:00"/>
                 </div>
             </div>
             <div id="div_regEnd" class="row">
                 <div class="col-sm-3">
-                    <label class="caption_label">Registration start date:</label>
+                    <label class="caption_label">Registration end date:</label>
                 </div>
                 <div class="col-sm-8">
-                    <input type="text" class="date editable"/>
-                    <input type="text" class="time editable"/>
+                    <input type="text" class="date editable" value="02/27/2019"/>
+                    <input type="text" class="time editable" value="00:00:00"/>
                 </div>
             </div>
             <div id="div_absStart" class="row">
@@ -99,17 +99,17 @@
                     <label class="caption_label">Abstract start date:</label>
                 </div>
                 <div class="col-sm-8">
-                    <input type="text" class="date editable"/>
-                    <input type="text" class="time editable"/>
+                    <input type="text" class="date editable" value="02/21/2019"/>
+                    <input type="text" class="time editable" value="00:30:00"/>
                 </div>
             </div>
             <div id="div_absEnd" class="row">
                 <div class="col-sm-3">
-                    <label class="caption_label">Abstract start date:</label>
+                    <label class="caption_label">Abstract end date:</label>
                 </div>
                 <div class="col-sm-8">
-                    <input type="text" class="date editable"/>
-                    <input type="text" class="time editable"/>
+                    <input type="text" class="date editable" value="02/28/2019"/>
+                    <input type="text" class="time editable" value="00:30:00"/>
                 </div>
             </div>
             <div id="div_confEmail" class="row">
@@ -117,7 +117,7 @@
                     <label class="caption_label">Confirmation Email:</label>
                 </div>
                 <div class="col-sm-8">
-                    <textarea id="ta_confirmationEmail" class="txt_area editable" rows="10" cols="100"></textarea>
+                    <textarea id="ta_confirmationEmail" class="txt_area editable" rows="10" cols="100">Hi All,&#10EOM.&#10&#10Thanks,&#10Admin</textarea>
                 </div>
             </div>
             <div id="div_emailList" class="row">
@@ -125,10 +125,10 @@
                     <label class="caption_label">Email List:</label>
                 </div>
                 <div class="col-sm-8">
-                    <input id="txt_EmailList" type="text" class="txt_long editable"/>
+                    <input id="txt_EmailList" type="text" class="txt_long editable" value="abc@xyz.com"/>
                 </div>
             </div>
-            <div id="div_fee" class="row">
+            <div id="div_fee" class="row existing_conf_only">
                 <div class="col-sm-3">
                     <label class="caption_label">Fee Entities:</label>
                 </div>
@@ -137,12 +137,13 @@
                     <input id="btn_modifyFee" type="button" class="editable generic-btn" value="Modify Fees"/>
                 </div>
             </div>
-            <div id="div_promo" class="row">
+            <div id="div_promo" class="row existing_conf_only">
                 <div class="col-sm-3">
                     <label class="caption_label">Promo Codes:</label>
                 </div>
                 <div class="col-sm-8">
-                    <input id="txt_Promo" type="text" class="txt_long editable"/>
+                    <table id="tbl_promo"></table>
+                    <input id="btn_Promo" type="button" class="editable generic-btn" value="Modify Promo Codes"/>
                 </div>
             </div>
             <div id="div_talks" class="row">

@@ -19,8 +19,8 @@ $(function() {
                 url: getWsUrl("admin_login"),
                 data: JSON.stringify(login_info),
                 headers: { 
-                    'Accept': 'application/json', 
-                    'Content-Type': 'application/json' 
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
                 },
                 success: loginSuccess,
                 error: loginFailure

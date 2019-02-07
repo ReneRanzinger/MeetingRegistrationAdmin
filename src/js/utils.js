@@ -39,7 +39,14 @@ function getWsUrl(request, {confCode, postRegCode, confId}={}) {
 			return ws_base_conference + "/allConferences";
 			break;
 		case "conference_details":
-			return ws_base_conference + "/details/" + confId;
+            return ws_base_conference + "/details/" + confId;
+            break;
+        case "new_conference":
+            return ws_base_conference + "/addNew";
+            break;
+        case "update_conference":
+            return ws_base_conference + "/update/" + confId;
+            break;
     }
 }
 
@@ -63,19 +70,24 @@ function genericAjaxFailure(response) {
 }
 
 
-function ajaxCall(type, ws, params, successFunction, failureFunction=genericAjaxFailure) {
+function ajaxCall(type, ws, params, data, successFunction, failureFunction=genericAjaxFailure) {
     var token = window.localStorage.getItem("token") || '';
-    $.ajax({
+    ajaxConfig = {
         dataType: 'json',
         headers: {
             'Accept': 'application/json',
+            'Content-Type': 'application/json',
             'Authorization': token
         },
         url: getWsUrl(ws, params),
         method: type,
         success: successFunction,
         error: failureFunction
-    });
+    }
+    if(data) {
+        $.extend(ajaxConfig, {data: JSON.stringify(data)})
+    }
+    $.ajax(ajaxConfig);
 }
 
 
