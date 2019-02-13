@@ -11,27 +11,15 @@ $(function() {
  * @param request type of the resource requested
  * @returns URL for the requested type
  */
-function getWsUrl(request, {confCode, postRegCode, confId}={}) {
-    // var ws_base = "http://glycomics.ccrc.uga.edu/meetings/api/";
-	var ws_base = "http://localhost:8080/";
+function getWsUrl(request, {confCode, postRegCode, confId, feeId, promoId}={}) {
+    var ws_base = "http://glycomics.ccrc.uga.edu/meetings/api/";
+	// var ws_base = "http://localhost:8080/";
     
     var ws_base_conference = ws_base + "conference";
-	var ws_base_registration = ws_base +"registration";
-	var ws_base_admin= ws_base + "admin"
+    var ws_base_fee = ws_base + "fee";
+    var ws_base_promo = ws_base + "promo";
     
     switch (request.toLowerCase()) {
-	    case "info":
-	        return ws_base_conference + "/info/" + confCode;
-	        break;
-	    case "post_reg":
-	    	return ws_base_conference + "/info/" + confCode + "/" + postRegCode;
-	    	break;
-	    case "register":
-	        return ws_base_registration + "/register";
-			break;
-		case "participant_list":
-	        return ws_base_admin + "/participantExcel/" + confCode;
-			break;
 		case "admin_login":
 	        return ws_base + "login";
 			break;
@@ -47,6 +35,24 @@ function getWsUrl(request, {confCode, postRegCode, confId}={}) {
         case "update_conference":
             return ws_base_conference + "/update/" + confId;
             break;
+        case "add_fee":
+            return ws_base_fee + "/addNew/" + confId;
+            break;
+        case "update_fee":
+            return ws_base_fee + "/update/" + feeId;
+            break;
+        case "delete_fee":
+            return ws_base_fee + "/delete/" + feeId;
+            break;
+        case "add_promo":
+            return ws_base_promo + "/addNew/" + confId;
+            break;
+        case "update_promo":
+            return ws_base_promo + "/update/" + promoId;
+            break;
+        case "delete_promo":
+            return ws_base_promo + "/delete/" + promoId;
+            break;
     }
 }
 
@@ -54,7 +60,7 @@ function getWsUrl(request, {confCode, postRegCode, confId}={}) {
 function genericAjaxFailure(response) {
     $('#loading_image').fadeOut();
     var title = "Error";
-    var message = "Unknown error!";
+    var message = response.responseJSON.message;
     var callback = null;
     if(response.status == 401 || response.status == 403) {
         title = "";
@@ -70,7 +76,7 @@ function genericAjaxFailure(response) {
 }
 
 
-function ajaxCall(type, ws, params, data, successFunction, failureFunction=genericAjaxFailure) {
+function ajaxCall(type, ws, wsParams, data, successFunction, failureFunction=genericAjaxFailure) {
     var token = window.localStorage.getItem("token") || '';
     ajaxConfig = {
         dataType: 'json',
@@ -79,7 +85,7 @@ function ajaxCall(type, ws, params, data, successFunction, failureFunction=gener
             'Content-Type': 'application/json',
             'Authorization': token
         },
-        url: getWsUrl(ws, params),
+        url: getWsUrl(ws, wsParams),
         method: type,
         success: successFunction,
         error: failureFunction
@@ -96,7 +102,7 @@ function getUrlParameter(name) {
     var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
     var results = regex.exec(location.search);
     return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
-};
+}
 
 
 function logout() {

@@ -44,18 +44,26 @@ $(function() {
     });
 
     $('.edit-btn').on('click', editConference);
+    $('.table').on('click', '.editFeePromoBtn', editFeePromo);
+    $('.table').on('click', '.saveFeePromoBtn', saveFeePromo);
+    $('.table').on('click', '.deleteFeePromoBtn', deleteFeePromo);
+    $('.add-btn').on('click', addFeePromo);
 
     var confId = getUrlParameter('id');
     if(confId) {
         // View/edit mode
-        ajaxCall('GET', 'conference_details', {confId:confId}, null, confDetailsAjaxSuccess);
+        existingConferenceSetup(confId);
     }
     else{
         // Create mode
         newConferenceSetup();        
     }
-    
 });
+
+
+function existingConferenceSetup(confId) {
+    ajaxCall('GET', 'conference_details', {confId:confId}, null, confDetailsAjaxSuccess);
+}
 
 
 function newConferenceSetup() {
@@ -64,22 +72,115 @@ function newConferenceSetup() {
 }
 
 
-
 function disableEditableFields(status) {
     $('.editable').prop('disabled', status);
 }
 
 
 function editConference(e) {
-    if($('.edit-btn').val() == 'Edit Conference') {
+    var btnElement = $('#btn_Edit_Conf');
+    if(btnElement.val().trim() == 'Edit Conference') {
         disableEditableFields(false);
-        $('.edit-btn').prop('value', 'Save Changes');
+        btnElement.prop('value', '   Save Changes');
+        btnElement.removeClass('edit-btn');
+        btnElement.addClass('saveEdit-btn');
     }
     else {      //save changes
         saveConference();
         disableEditableFields(true);
-        $('.edit-btn').prop('value', 'Edit Conference');
+        btnElement.prop('value', '   Edit Conference');
+        btnElement.removeClass('saveEdit-btn');
+        btnElement.addClass('edit-btn');
     }    
+}
+
+
+function addFeePromo(e) {
+    var type;
+    if($(this).val().trim() === 'Add Fee') {
+        type = 'fee';
+    }
+    else {
+        type = 'promo';
+    }
+
+    $('#tbl_'+ type + ' tr:last').after("<tr><td><input type='text'></td><td><input type='text'></td><td><input type='image' class='table-btn saveFeePromoBtn' alt='Save' src='../resources/Save.png' data-" + type +"id=''/>\
+    <input type='image' class='table-btn deleteFeePromoBtn' alt='Delete' src='../resources/Delete.png' data-"+ type + "id=''/></td></tr>");
+}
+
+
+function editFeePromo(e) {
+    e.preventDefault();
+    $(this).parents("tr").find("td:not(:last-child)").each(function(){
+        $(this).html('<input type="text" value="' + $(this).text() + '">');
+    });
+    $(e.target).removeClass('editFeePromoBtn');
+    $(e.target).addClass('saveFeePromoBtn');
+    $(e.target).prop('src', '../resources/Save.png')
+}
+
+
+function saveFeePromo(e) {
+    e.preventDefault();
+    var tr = $(this).parents('tr');
+    var data = {
+        d1: $(tr.children()[0]).find('input').val(),
+        d2: $(tr.children()[1]).find('input').val()
+    };
+    var feeId = $(this).data('feeid');
+    var promoId = $(this).data('promoid');
+
+    if(feeId != null) {
+        var json = {
+            name: data.d1,
+            amount: data.d2
+        };
+        if(feeId !== '') {
+            ajaxCall('PUT', 'update_fee', {feeId:feeId}, json, ajaxSuccessRefreshConference);
+        }
+        else {
+            var confId = $('#lbl_confId_val').text();
+            ajaxCall('POST', 'add_fee', {confId:confId}, json, ajaxSuccessRefreshConference);
+        }
+    }
+    else {
+        var json = {
+            code: data.d1,
+            description: data.d2
+        };
+        if(promoId !== '') {
+            ajaxCall('PUT', 'update_promo', {promoId:promoId}, json, ajaxSuccessRefreshConference);
+        }
+        else {
+            var confId = $('#lbl_confId_val').text();
+            ajaxCall('POST', 'add_promo', {confId:confId}, json, ajaxSuccessRefreshConference);
+        }
+    }
+    if(feeId !== '' || promoId !== '') {
+        $(e.target).removeClass('saveFeePromoBtn');
+        $(e.target).addClass('editFeePromoBtn');
+    }    
+}
+
+
+function deleteFeePromo(e) {
+    e.preventDefault();
+    var feeId = $(this).data('feeid');
+    var promoId = $(this).data('promoid');
+    if(feeId) {
+        ajaxCall('DELETE', 'delete_fee', {feeId:feeId}, null, ajaxSuccessRefreshConference);
+    }
+    else if(promoId) {
+        ajaxCall('DELETE', 'delete_promo', {promoId:promoId}, null, ajaxSuccessRefreshConference);
+    }
+    else {
+        $(this).parents.find('tr').remove();
+    }
+}
+
+
+function modifyPromoCodes() {
+    
 }
 
 
@@ -111,7 +212,7 @@ function saveConference() {
         ajaxCall('POST', 'new_conference', {}, conf_json, newConfAjaxSuccess);
     }
     else {      //modify existing conference
-        
+        ajaxCall('PUT', 'update_conference', {confId:confId}, conf_json, ajaxSuccessRefreshConference);
     }
 }
 
@@ -125,8 +226,6 @@ function getDateTimeString(datetime_div) {
 
 
 function confDetailsAjaxSuccess(response) {
-    console.log(response);
-
     $('#lbl_confId_val').text(response.conferenceId);
     $('#lbl_confCode_val').text(response.conferenceCode);
     $('#lbl_postRegCode_val').text(response.postRegistrationCode);
@@ -146,17 +245,13 @@ function confDetailsAjaxSuccess(response) {
 
     $('#ta_confirmationEmail').text(response.confirmationEmail);
     $('#txt_EmailList').val(response.emailList);
-
+    
+    $('#tbl_fee').bootstrapTable('destroy');
     $('#tbl_fee').bootstrapTable({
         columns: [
             {
-                field: 'feeId',
-                title: 'ID',
-                sortable: true
-            },
-            {
                 field: 'name',
-                title: 'Description',
+                title: 'Name',
                 sortable: true
             },
             {
@@ -164,20 +259,25 @@ function confDetailsAjaxSuccess(response) {
                 title: 'Amount',
                 sortable: true
             },
+            {
+                title: 'Actions',
+                width: '20%',
+                sortable: false,
+                formatter: function (value, row, index, field) {
+                    return "<input type='image' class='table-btn editFeePromoBtn' alt='Edit' src='../resources/Edit.png' data-feeid='" + row.feeId + "'/>\
+                    <input type='image' class='table-btn deleteFeePromoBtn' alt='Delete' src='../resources/Delete.png' data-feeid='" + row.feeId + "'/>"
+                }
+            }
         ],
         formatNoMatches: function () {
-            return 'No fee entities for this conference';
+            return 'No fee entities exist for this conference';
         },
         data: response.feeEntities
     });
 
+    $('#tbl_promo').bootstrapTable('destroy');
     $('#tbl_promo').bootstrapTable({
         columns: [
-            {
-                field: 'promotionCodeId',
-                title: 'ID',
-                sortable: true
-            },
             {
                 field: 'code',
                 title: 'Promo Code',
@@ -187,10 +287,19 @@ function confDetailsAjaxSuccess(response) {
                 field: 'description',
                 title: 'Description',
                 sortable: true
+            },
+            {
+                title: 'Actions',
+                width: '20%',
+                sortable: false,
+                formatter: function (value, row, index, field) {
+                    return "<input type='image' class='table-btn editFeePromoBtn' alt='Edit' src='../resources/Edit.png' data-promoid='" + row.promotionCodeId + "'/>\
+                    <input type='image' class='table-btn deleteFeePromoBtn' alt='Delete' src='../resources/Delete.png' data-promoid='" + row.promotionCodeId + "'/>"
+                }
             }
         ],
         formatNoMatches: function () {
-            return 'No promo codes for this conference';
+            return 'No promo codes exist for this conference';
         },
         data: response.promoCodes
     });
@@ -202,5 +311,11 @@ function confDetailsAjaxSuccess(response) {
 
 
 function newConfAjaxSuccess(response) {
-    window.location = './conference.html?id=' + response.conferenceId;
+    existingConferenceSetup(response.conferenceId);
+}
+
+
+function ajaxSuccessRefreshConference(response) {
+    var confId = $('#lbl_confId_val').text();
+    existingConferenceSetup(confId);
 }

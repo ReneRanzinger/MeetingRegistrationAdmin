@@ -1,10 +1,9 @@
 .txt_long {
-    width: 740px;
+    width: 650px;
 }
 
 .container_custom {
     line-height: 30px;
-    margin-left: 5%;
 }
 
 input {
@@ -13,6 +12,8 @@ input {
 
 .txt_area {
     line-height: 20px;
+    width: 650px;
+    height: 250px;
 }
 
 .caption_label {
@@ -20,7 +21,8 @@ input {
 }
 
 .table-btn {
-    width: 100%;
+    width: 25px;
+    height: 25px;
 }
 
 #logo-uga {
@@ -31,6 +33,22 @@ input {
 .generic-btn {
     height: auto;
     font: 1.2em sans-serif;
+}
+
+.add-btn {
+    background: url('../../resources/Add.png') no-repeat left;
+    background-size: 20px 20px;
+    border: 0px;
+}
+
+.edit-btn {
+    background: #8c8 url('../../resources/Edit.png') no-repeat top left;
+    background-size: 20px 20px;
+}
+
+.saveEdit-btn {
+    background: #8c8 url('../../resources/Save.png') no-repeat left;
+    background-size: 19px 15px;
 }
 
 .generic-btn:disabled{
