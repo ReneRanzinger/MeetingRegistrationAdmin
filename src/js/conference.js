@@ -175,13 +175,8 @@ function deleteFeePromo(e) {
         ajaxCall('DELETE', 'delete_promo', {promoId:promoId}, null, ajaxSuccessRefreshConference);
     }
     else {
-        $(this).parents.find('tr').remove();
+        $(this).parent().parent().remove();
     }
-}
-
-
-function modifyPromoCodes() {
-    
 }
 
 
@@ -210,7 +205,7 @@ function saveConference() {
     }
 
     if(confId == "") {      //new conference
-        ajaxCall('POST', 'new_conference', {}, conf_json, newConfAjaxSuccess);
+        ajaxCall('POST', 'new_conference', {}, conf_json, newConfAjaxSuccess, newConfAjaxFailure);
     }
     else {      //modify existing conference
         ajaxCall('PUT', 'update_conference', {confId:confId}, conf_json, ajaxSuccessRefreshConference);
@@ -312,7 +307,18 @@ function confDetailsAjaxSuccess(response) {
 
 
 function newConfAjaxSuccess(response) {
+    hideExistingConferenceFields(false);
     existingConferenceSetup(response.conferenceId);
+}
+
+
+function newConfAjaxFailure(response) {
+    message = response.responseJSON.message || response.responseJSON.errors.toString();
+    alertify.alert().setting({
+        'title': 'Error',
+        'message': message,
+        'onok': newConferenceSetup
+    }).show();
 }
 
 

@@ -3,6 +3,11 @@ $(function() {
         e.preventDefault();
         logout();
     });
+
+    var token = window.localStorage.getItem("token");
+    if(!token && !window.location.pathname.endsWith('login.html')) {
+        genericAjaxFailure({status: 401})
+    }
 });
 
 
@@ -62,14 +67,13 @@ function genericAjaxFailure(response) {
     var title = "Error";
     var message = "Server error";
     var callback = logout;
-    if(response.status == 401 || response.status == 403) {
+    if(response.status == 401) {
         title = "Forbidden";
         message = "Sorry, you are not logged in. You will be redirected to the login page now.";
         callback = logout;
     }
-    else if(response.status != 0){
-        title = "";
-        message = response.responseJSON.message;
+    else if(response.status !== 0){
+        message = response.responseJSON.message || response.responseJSON.errors.toString();
         callback = null;
     }
     alertify.alert().setting({
