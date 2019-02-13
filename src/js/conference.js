@@ -1,7 +1,4 @@
 $(function() {
-    $('.headerlink').removeClass('active');
-    $('#li_conf_mgmt').addClass('active');
-
     $('#div_regStart .date').datepicker({
         format: 'mm/dd/yyyy',
         autoclose: true
@@ -58,6 +55,9 @@ $(function() {
         // Create mode
         newConferenceSetup();        
     }
+
+    $('.headerlink').removeClass('active');
+    $('#li_conf_mgmt').addClass('active');
 });
 
 
