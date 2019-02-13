@@ -48,7 +48,7 @@ input {
 
 .saveEdit-btn {
     background: #8c8 url('../../resources/Save.png') no-repeat left;
-    background-size: 19px 15px;
+    background-size: 20px 20px;
 }
 
 .generic-btn:disabled{

@@ -114,5 +114,5 @@ function getUrlParameter(name) {
 
 function logout() {
     window.localStorage.removeItem("token");
-    window.location.href = "./admin_login.html";
+    window.location.href = "./login.html";
 }

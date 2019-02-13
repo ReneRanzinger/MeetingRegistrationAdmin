@@ -116,7 +116,8 @@ function editFeePromo(e) {
     });
     $(e.target).removeClass('editFeePromoBtn');
     $(e.target).addClass('saveFeePromoBtn');
-    $(e.target).prop('src', '../resources/Save.png')
+    $(e.target).prop('src', '../resources/Save.png');
+    $(e.target).prop('title', 'Save');
 }
 
 
@@ -264,8 +265,8 @@ function confDetailsAjaxSuccess(response) {
                 width: '20%',
                 sortable: false,
                 formatter: function (value, row, index, field) {
-                    return "<input type='image' class='table-btn editFeePromoBtn' alt='Edit' src='../resources/Edit.png' data-feeid='" + row.feeId + "'/>\
-                    <input type='image' class='table-btn deleteFeePromoBtn' alt='Delete' src='../resources/Delete.png' data-feeid='" + row.feeId + "'/>"
+                    return "<input type='image' class='table-btn editFeePromoBtn' alt='Edit/Save' src='../resources/Edit.png' data-toggle='tooltip' title='Edit' data-feeid='" + row.feeId + "'/>\
+                    <input type='image' class='table-btn deleteFeePromoBtn' alt='Delete' src='../resources/Delete.png' data-toggle='tooltip' title='Delete' data-feeid='" + row.feeId + "'/>"
                 }
             }
         ],
@@ -293,8 +294,8 @@ function confDetailsAjaxSuccess(response) {
                 width: '20%',
                 sortable: false,
                 formatter: function (value, row, index, field) {
-                    return "<input type='image' class='table-btn editFeePromoBtn' alt='Edit' src='../resources/Edit.png' data-promoid='" + row.promotionCodeId + "'/>\
-                    <input type='image' class='table-btn deleteFeePromoBtn' alt='Delete' src='../resources/Delete.png' data-promoid='" + row.promotionCodeId + "'/>"
+                    return "<input type='image' class='table-btn editFeePromoBtn' alt='Edit/Save' src='../resources/Edit.png' data-toggle='tooltip' title='Edit' data-promoid='" + row.promotionCodeId + "'/>\
+                    <input type='image' class='table-btn deleteFeePromoBtn' alt='Delete' src='../resources/Delete.png' data-toggle='tooltip' title='Delete' data-promoid='" + row.promotionCodeId + "'/>"
                 }
             }
         ],

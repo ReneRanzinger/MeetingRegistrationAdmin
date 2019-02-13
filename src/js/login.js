@@ -37,7 +37,7 @@ function loginSuccess(response, textStatus, jqXHR) {
     $('#loading_image').fadeOut();
     var token = jqXHR.getResponseHeader('Authorization');
     window.localStorage.setItem("token", token);
-    window.location.href = './index.html';
+    window.location.href = './home.html';
 }
 
 

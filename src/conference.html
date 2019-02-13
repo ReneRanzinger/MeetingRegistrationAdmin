@@ -1,167 +1,165 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
-    <meta http-equiv="Pragma" content="no-cache" />
-    <meta http-equiv="Expires" content="0" />
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+        <meta http-equiv="Pragma" content="no-cache" />
+        <meta http-equiv="Expires" content="0" />
 
-    <title>View/Edit Conference</title>
+        <title>View/Edit Conference</title>
 
-    <link rel="stylesheet" type="text/css" href="libraries/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="libraries/bootstrap/css/bootstrap-table.min.css">
-    <link rel="stylesheet" type="text/css" href="libraries/alertifyjs/css/alertify.css">
-    <link rel="stylesheet" type="text/css" href="libraries/bootstrap/css/bootstrap-datepicker.min.css">
-    <link rel="stylesheet" type="text/css" href="libraries/bootstrap/css/bootstrap-toggle.min.css">
-    <link rel="stylesheet" type="text/css" href="libraries/timepicker/css/jquery.timepicker.min.css">
-    <link rel="stylesheet" type="text/css" media="all" href="css/style.css ">
+        <link rel="stylesheet" type="text/css" href="libraries/bootstrap/css/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="libraries/bootstrap/css/bootstrap-table.min.css">
+        <link rel="stylesheet" type="text/css" href="libraries/alertifyjs/css/alertify.css">
+        <link rel="stylesheet" type="text/css" href="libraries/bootstrap/css/bootstrap-datepicker.min.css">
+        <link rel="stylesheet" type="text/css" href="libraries/bootstrap/css/bootstrap-toggle.min.css">
+        <link rel="stylesheet" type="text/css" href="libraries/timepicker/css/jquery.timepicker.min.css">
+        <link rel="stylesheet" type="text/css" media="all" href="css/style.css ">
 
-    <script type="text/javascript" src="libraries/jquery/jquery-3.1.js"></script>
-    <script type="text/javascript" src="libraries/bootstrap/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="libraries/bootstrap/js/bootstrap-table.min.js"></script>
-    <script type="text/javascript" src="libraries/alertifyjs/alertify.js"></script>
-    <script type="text/javascript" src="libraries/validator.js"></script>
-    <script type="text/javascript" src="libraries/w3.js"></script>
-    <script type="text/javascript" src="libraries/bootstrap/js/bootstrap-datepicker.min.js"></script>
-    <script type="text/javascript" src="libraries/bootstrap/js/bootstrap-toggle.min.js"></script>
-    <script type="text/javascript" src="libraries/timepicker/js/jquery.timepicker.js"></script>
+        <script type="text/javascript" src="libraries/jquery/jquery-3.1.js"></script>
+        <script type="text/javascript" src="libraries/bootstrap/js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="libraries/bootstrap/js/bootstrap-table.min.js"></script>
+        <script type="text/javascript" src="libraries/alertifyjs/alertify.js"></script>
+        <script type="text/javascript" src="libraries/validator.js"></script>
+        <script type="text/javascript" src="libraries/w3.js"></script>
+        <script type="text/javascript" src="libraries/bootstrap/js/bootstrap-datepicker.min.js"></script>
+        <script type="text/javascript" src="libraries/bootstrap/js/bootstrap-toggle.min.js"></script>
+        <script type="text/javascript" src="libraries/timepicker/js/jquery.timepicker.js"></script>
 
-    
-    <script type="text/javascript" src="js/utils.js"></script>
-    <script type="text/javascript" src="js/conference.js"></script>
+        
+        <script type="text/javascript" src="js/utils.js"></script>
+        <script type="text/javascript" src="js/conference.js"></script>
 
-</head>
-<body>
-<div w3-include-html="header.html"></div>
+    </head>
+    <body>
+        <div w3-include-html="header.html"></div>
+        <script>w3.includeHTML();</script>
 
-<div class="container container_custom col-md-12">
-    <div id="div_conference" class="col-md-8">
-        <div>
-            <input id ="btn_Edit_Conf" type="button" class="edit-btn generic-btn" value="   Edit Conference"/>        
+        <div class="container container_custom col-md-12">
+            <div id="div_conference" class="col-md-8">
+                <div>
+                    <input id ="btn_Edit_Conf" type="button" class="edit-btn generic-btn" value="   Edit Conference"/>        
+                </div>
+                <div id="div_non_editable_details" class="existing_conf_only">
+                    <div id="div_confId" class="row">
+                        <div class="col-sm-3">
+                            <label class="caption_label">Conference Id:</label>
+                        </div>
+                        <div class="col-sm-6">
+                            <label id="lbl_confId_val"></label>
+                        </div>
+                    </div>
+                    <div id="div_confCode" class="row">
+                        <div class="col-sm-3">
+                            <label class="caption_label">Conference Code:</label>
+                        </div>
+                        <div class="col-sm-6">
+                            <label id="lbl_confCode_val"></label>
+                        </div>                    
+                    </div>
+                    <div id="div_postRegCode" class="row">
+                        <div class="col-sm-3">
+                            <label class="caption_label">Post Registration Code:</label>
+                        </div>
+                        <div class="col-sm-6">
+                            <label id="lbl_postRegCode_val"></label>
+                        </div>
+                    </div>
+                </div>
+                <div id="div_editable_details">
+                    <div id="div_confName" class="row">
+                        <div class="col-sm-3">
+                            <label class="caption_label">Conference Name:</label>
+                        </div>
+                        <div class="col-sm-6">
+                            <input id="txt_confName" class="editable txt_long"></input>
+                        </div>
+                    </div>
+                    <div id="div_regStart" class="row">
+                        <div class="col-sm-3">
+                            <label class="caption_label">Registration start date:</label>
+                        </div>
+                        <div class="col-sm-6">
+                            <input type="text" class="date editable"/>
+                            <input type="text" class="time editable"/>
+                        </div>
+                    </div>
+                    <div id="div_regEnd" class="row">
+                        <div class="col-sm-3">
+                            <label class="caption_label">Registration end date:</label>
+                        </div>
+                        <div class="col-sm-6">
+                            <input type="text" class="date editable"/>
+                            <input type="text" class="time editable"/>
+                        </div>
+                    </div>
+                    <div id="div_absStart" class="row">
+                        <div class="col-sm-3">
+                            <label class="caption_label">Abstract start date:</label>
+                        </div>
+                        <div class="col-sm-6">
+                            <input type="text" class="date editable"/>
+                            <input type="text" class="time editable"/>
+                        </div>
+                    </div>
+                    <div id="div_absEnd" class="row">
+                        <div class="col-sm-3">
+                            <label class="caption_label">Abstract end date:</label>
+                        </div>
+                        <div class="col-sm-6">
+                            <input type="text" class="date editable"/>
+                            <input type="text" class="time editable"/>
+                        </div>
+                    </div>
+                    <div id="div_confEmail" class="row">
+                        <div class="col-sm-3">
+                            <label class="caption_label">Confirmation Email:</label>
+                        </div>
+                        <div class="col-sm-6">
+                            <textarea id="ta_confirmationEmail" class="txt_area editable"></textarea>
+                        </div>
+                    </div>
+                    <div id="div_emailList" class="row">
+                        <div class="col-sm-3">
+                            <label class="caption_label">Email List:</label>
+                        </div>
+                        <div class="col-sm-6">
+                            <input id="txt_EmailList" type="text" class="txt_long editable"/>
+                        </div>
+                    </div>
+                    <div id="div_talks" class="row">
+                        <div class="col-sm-3">
+                            <label class="caption_label">Short Talks:</label>
+                        </div>
+                        <div class="col-sm-6">
+                            <input id="cb_talks" type="checkbox" data-toggle='toggle' data-on="Yes" data-off="No" class="editable"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="div_feePromo" class=col-md-4>
+                <div id="div_fee" class="row existing_conf_only">
+                    <div class="col-sm-3">
+                        <label class="caption_label">Fee Entities:</label>
+                    </div>
+                    <div class="col-sm-12">
+                        <table id="tbl_fee" class='table'></table>
+                        <input id="btn_addFee" type="button" class="generic-btn add-btn" value="   Add Fee"/>
+                    </div>
+                </div>
+                <br>
+                <div id="div_promo" class="row existing_conf_only">
+                    <div class="col-sm-3">
+                        <label class="caption_label">Promo Codes:</label>
+                    </div>
+                    <div class="col-sm-12">
+                        <table id="tbl_promo" class='table'></table>
+                        <input id="btn_addPromo" type="button" class="generic-btn add-btn" value="   Add Promo Code"/>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div id="div_non_editable_details" class="existing_conf_only">
-            <div id="div_confId" class="row">
-                <div class="col-sm-3">
-                    <label class="caption_label">Conference Id:</label>
-                </div>
-                <div class="col-sm-6">
-                    <label id="lbl_confId_val"></label>
-                </div>
-            </div>
-            <div id="div_confCode" class="row">
-                <div class="col-sm-3">
-                    <label class="caption_label">Conference Code:</label>
-                </div>
-                <div class="col-sm-6">
-                    <label id="lbl_confCode_val"></label>
-                </div>                    
-            </div>
-            <div id="div_postRegCode" class="row">
-                <div class="col-sm-3">
-                    <label class="caption_label">Post Registration Code:</label>
-                </div>
-                <div class="col-sm-6">
-                    <label id="lbl_postRegCode_val"></label>
-                </div>
-            </div>
-        </div>
-        <div id="div_editable_details">
-            <div id="div_confName" class="row">
-                <div class="col-sm-3">
-                    <label class="caption_label">Conference Name:</label>
-                </div>
-                <div class="col-sm-6">
-                    <input id="txt_confName" class="editable txt_long"></input>
-                </div>
-            </div>
-            <div id="div_regStart" class="row">
-                <div class="col-sm-3">
-                    <label class="caption_label">Registration start date:</label>
-                </div>
-                <div class="col-sm-6">
-                    <input type="text" class="date editable"/>
-                    <input type="text" class="time editable"/>
-                </div>
-            </div>
-            <div id="div_regEnd" class="row">
-                <div class="col-sm-3">
-                    <label class="caption_label">Registration end date:</label>
-                </div>
-                <div class="col-sm-6">
-                    <input type="text" class="date editable"/>
-                    <input type="text" class="time editable"/>
-                </div>
-            </div>
-            <div id="div_absStart" class="row">
-                <div class="col-sm-3">
-                    <label class="caption_label">Abstract start date:</label>
-                </div>
-                <div class="col-sm-6">
-                    <input type="text" class="date editable"/>
-                    <input type="text" class="time editable"/>
-                </div>
-            </div>
-            <div id="div_absEnd" class="row">
-                <div class="col-sm-3">
-                    <label class="caption_label">Abstract end date:</label>
-                </div>
-                <div class="col-sm-6">
-                    <input type="text" class="date editable"/>
-                    <input type="text" class="time editable"/>
-                </div>
-            </div>
-            <div id="div_confEmail" class="row">
-                <div class="col-sm-3">
-                    <label class="caption_label">Confirmation Email:</label>
-                </div>
-                <div class="col-sm-6">
-                    <textarea id="ta_confirmationEmail" class="txt_area editable"></textarea>
-                </div>
-            </div>
-            <div id="div_emailList" class="row">
-                <div class="col-sm-3">
-                    <label class="caption_label">Email List:</label>
-                </div>
-                <div class="col-sm-6">
-                    <input id="txt_EmailList" type="text" class="txt_long editable"/>
-                </div>
-            </div>
-            <div id="div_talks" class="row">
-                <div class="col-sm-3">
-                    <label class="caption_label">Short Talks:</label>
-                </div>
-                <div class="col-sm-6">
-                    <input id="cb_talks" type="checkbox" data-toggle='toggle' data-on="Yes" data-off="No" class="editable"/>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div id="div_feePromo" class=col-md-4>
-        <div id="div_fee" class="row existing_conf_only">
-            <div class="col-sm-3">
-                <label class="caption_label">Fee Entities:</label>
-            </div>
-            <div class="col-sm-12">
-                <table id="tbl_fee" class='table'></table>
-                <input id="btn_addFee" type="button" class="generic-btn add-btn" value="   Add Fee"/>
-            </div>
-        </div>
-        <br>
-        <div id="div_promo" class="row existing_conf_only">
-            <div class="col-sm-3">
-                <label class="caption_label">Promo Codes:</label>
-            </div>
-            <div class="col-sm-12">
-                <table id="tbl_promo" class='table'></table>
-                <input id="btn_addPromo" type="button" class="generic-btn add-btn" value="   Add Promo Code"/>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div w3-include-html="footer.html"></div>
-<script>w3.includeHTML();</script>
-</body>
+    </body>
 </html>
