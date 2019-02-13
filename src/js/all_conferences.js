@@ -35,8 +35,8 @@ function allConferencesAjaxSuccess(response) {
                 title: 'Actions',
                 sortable: false,
                 formatter: function (value, row, index, field) {
-                    return "<input type='image' class='table-btn viewEditBtn' src='../resources/ViewEdit.png' alt='View/Edit' data-toggle='tooltip' data-trigger='hover' data-html='true' title='View<br>Conference' data-confid='" + row.id + "'/>\
-                    <input type='image' class='table-btn showParticipantsBtn' src='../resources/Participants.png' alt='Show' data-toggle='tooltip' data-trigger='hover' title='Show Participants' data-confid='" + row.id + "'/>"
+                    return "<input type='image' class='table-btn viewEditBtn' src='resources/ViewEdit.png' alt='View/Edit' data-toggle='tooltip' data-trigger='hover' data-html='true' title='View<br>Conference' data-confid='" + row.id + "'/>\
+                    <input type='image' class='table-btn showParticipantsBtn' src='resources/Participants.png' alt='Show' data-toggle='tooltip' data-trigger='hover' title='Show Participants' data-confid='" + row.id + "'/>"
                 }
             }
         ],

@@ -12,8 +12,8 @@ $(function() {
  * @returns URL for the requested type
  */
 function getWsUrl(request, {confCode, postRegCode, confId, feeId, promoId}={}) {
-    // var ws_base = "http://glycomics.ccrc.uga.edu/meetings/api/";
-	var ws_base = "http://localhost:8080/";
+    var ws_base = "http://glycomics.ccrc.uga.edu/meetings/api/";
+	// var ws_base = "http://localhost:8080/";
     
     var ws_base_conference = ws_base + "conference";
     var ws_base_fee = ws_base + "fee";

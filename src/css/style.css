@@ -36,18 +36,18 @@ input {
 }
 
 .add-btn {
-    background: url('../../resources/Add.png') no-repeat left;
+    background: url('../resources/Add.png') no-repeat left;
     background-size: 20px 20px;
     border: 0px;
 }
 
 .edit-btn {
-    background: #8c8 url('../../resources/Edit.png') no-repeat top left;
+    background: #8c8 url('../resources/Edit.png') no-repeat top left;
     background-size: 20px 20px;
 }
 
 .saveEdit-btn {
-    background: #8c8 url('../../resources/Save.png') no-repeat left;
+    background: #8c8 url('../resources/Save.png') no-repeat left;
     background-size: 20px 20px;
 }
 
