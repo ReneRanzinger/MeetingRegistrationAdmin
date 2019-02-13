@@ -12,8 +12,8 @@ $(function() {
  * @returns URL for the requested type
  */
 function getWsUrl(request, {confCode, postRegCode, confId, feeId, promoId}={}) {
-    var ws_base = "http://glycomics.ccrc.uga.edu/meetings/api/";
-	// var ws_base = "http://localhost:8080/";
+    // var ws_base = "http://glycomics.ccrc.uga.edu/meetings/api/";
+	var ws_base = "http://localhost:8080/";
     
     var ws_base_conference = ws_base + "conference";
     var ws_base_fee = ws_base + "fee";
@@ -60,19 +60,26 @@ function getWsUrl(request, {confCode, postRegCode, confId, feeId, promoId}={}) {
 function genericAjaxFailure(response) {
     $('#loading_image').fadeOut();
     var title = "Error";
-    var message = response.responseJSON.message;
-    var callback = null;
+    var message = "Server error";
+    var callback = logout;
     if(response.status == 401 || response.status == 403) {
-        title = "";
+        title = "Forbidden";
         message = "Sorry, you are not logged in. You will be redirected to the login page now.";
         callback = logout;
+    }
+    else if(response.status != 0){
+        title = "";
+        message = response.responseJSON.message;
+        callback = null;
     }
     alertify.alert().setting({
         'title': title,
         'message': message,
         'onok': callback
     }).show();
-    setTimeout(callback, 3000);
+    if(callback) {
+        setTimeout(callback, 3000);
+    }
 }
 
 
