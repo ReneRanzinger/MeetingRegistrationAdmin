@@ -78,6 +78,9 @@ function disableEditableFields(status) {
 
 
 function editConference(e) {
+    if(e) {
+        e.preventDefault();
+    }
     var btnElement = $('#btn_Edit_Conf');
     if(btnElement.val().trim() == 'Edit Conference') {
         disableEditableFields(false);
