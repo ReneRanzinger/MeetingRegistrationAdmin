@@ -228,16 +228,16 @@ function confDetailsAjaxSuccess(response) {
     $('#txt_confName').val(response.conferenceName);
 
     //Registration start/end + date/time
-    $('#div_regStart .date').datepicker('setDate', new Date(response.registrationStart));
-    $('#div_regEnd .date').datepicker('setDate', new Date(response.registrationEnd));
-    $('#div_regStart .time').timepicker('setTime', new Date(response.registrationStart));
-    $('#div_regEnd .time').timepicker('setTime', new Date(response.registrationEnd));
+    $('#div_regStart .date').datepicker('setDate', moment(response.registrationStart)._d);
+    $('#div_regEnd .date').datepicker('setDate', moment(response.registrationEnd)._d);
+    $('#div_regStart .time').timepicker('setTime', moment(response.registrationStart)._d);
+    $('#div_regEnd .time').timepicker('setTime', moment(response.registrationEnd)._d);
     
     //Abstract start/end + date/time
-    $('#div_absStart .date').datepicker('setDate', new Date(response.abstractStart));
-    $('#div_absEnd .date').datepicker('setDate', new Date(response.abstractEnd));
-    $('#div_absStart .time').timepicker('setTime', new Date(response.abstractStart));
-    $('#div_absEnd .time').timepicker('setTime', new Date(response.abstractEnd));
+    $('#div_absStart .date').datepicker('setDate', moment(response.abstractStart)._d);
+    $('#div_absEnd .date').datepicker('setDate', moment(response.abstractEnd)._d);
+    $('#div_absStart .time').timepicker('setTime', moment(response.abstractStart)._d);
+    $('#div_absEnd .time').timepicker('setTime', moment(response.abstractEnd)._d);
 
     $('#ta_confirmationEmail').text(response.confirmationEmail);
     $('#txt_EmailList').val(response.emailList);
