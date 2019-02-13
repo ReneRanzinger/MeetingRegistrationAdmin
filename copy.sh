@@ -1,3 +1,3 @@
 #!/bin/bash
 
-cp -R ./src/* /var/www/html/admin
+cp -a ./src/* /var/www/html/admin
