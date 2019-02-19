@@ -1,3 +1,12 @@
+.error-div {
+    line-height: 10px;
+    margin-bottom: 0px;
+}
+
+.form-group {
+    margin-bottom: 0px;
+}
+
 .txt_long {
     width: 650px;
 }
@@ -34,6 +43,7 @@ input {
 .generic-btn {
     height: auto;
     font: 1.2em sans-serif;
+    white-space: pre;
 }
 
 .add-btn {
@@ -43,7 +53,7 @@ input {
 }
 
 .edit-btn {
-    background: #8c8 url('../resources/Edit.png') no-repeat top left;
+    background: #8c8 url('../resources/Edit.png') no-repeat left;
     background-size: 20px 20px;
 }
 

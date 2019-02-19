@@ -41,7 +41,9 @@ function allConferencesAjaxSuccess(response) {
             }
         ],
         pagination: 20,
-        data: response
+        data: response,
+        sortName: 'id',
+        sortOrder: 'desc'
     });
     $('[data-toggle="tooltip"]').tooltip();
 }

@@ -40,7 +40,12 @@ $(function() {
         step: 30,
     });
 
-    $('.edit-btn').on('click', editConference);
+    $('#frm_conf').validator().on('submit', function(e) {
+        if(!e.isDefaultPrevented()) {
+            e.preventDefault();
+            editConference();
+        }
+    });
     $('.table').on('click', '.editFeePromoBtn', editFeePromo);
     $('.table').on('click', '.saveFeePromoBtn', saveFeePromo);
     $('.table').on('click', '.deleteFeePromoBtn', deleteFeePromo);
@@ -78,9 +83,6 @@ function disableEditableFields(status) {
 
 
 function editConference(e) {
-    if(e) {
-        e.preventDefault();
-    }
     var btnElement = $('#btn_Edit_Conf');
     if(btnElement.val().trim() == 'Edit Conference') {
         disableEditableFields(false);
@@ -94,7 +96,7 @@ function editConference(e) {
         btnElement.prop('value', '   Edit Conference');
         btnElement.removeClass('saveEdit-btn');
         btnElement.addClass('edit-btn');
-    }    
+    }
 }
 
 
@@ -197,13 +199,13 @@ function saveConference() {
     var confId = $('#lbl_confId_val').text();
 
     var conf_json = {
-        conferenceName: $('#txt_confName').val(),
+        conferenceName: $('#txt_confName').val().trim(),
         registrationStartDate: getDateTimeString('#div_regStart'),
         registrationEndDate: getDateTimeString('#div_regEnd'),
         abstractStartDate: getDateTimeString('#div_absStart'),
         abstractEndDate: getDateTimeString('#div_absEnd'),
         confirmationEmail: $('#ta_confirmationEmail').val(),
-        emailList: $('#txt_EmailList').val(),
+        emailList: $('#txt_EmailList').val().trim(),
         shortTalks: $('#cb_talks').prop('checked')
     }
 

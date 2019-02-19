@@ -27,7 +27,6 @@
         <script type="text/javascript" src="libraries/bootstrap/js/bootstrap-datepicker.min.js"></script>
         <script type="text/javascript" src="libraries/bootstrap/js/bootstrap-toggle.min.js"></script>
         <script type="text/javascript" src="libraries/timepicker/js/jquery.timepicker.min.js"></script>
-        <script type="text/javascript" src="libraries/validator.js"></script>
         <script type="text/javascript" src="libraries/moment.min.js"></script>
         
         <script type="text/javascript" src="js/utils.js"></script>
@@ -42,7 +41,7 @@
             <div class="container container_custom col-md-12">
                 <div id="div_conference" class="col-md-8">
                     <div>
-                        <input id ="btn_Edit_Conf" type="submit" class="edit-btn generic-btn" value="   Edit Conference"/>        
+                        <input id ="btn_Edit_Conf" type="submit" class="edit-btn generic-btn btn btn-primary" value="   Edit Conference"/>        
                     </div>
                     <div id="div_non_editable_details" class="existing_conf_only">
                         <div id="div_confId" class="row">
@@ -76,45 +75,49 @@
                                 <label class="caption_label">Conference Name:</label>
                             </div>
                             <div class="col-sm-6">
-                                <input id="txt_confName" class="editable txt_long" required></input>
+                                <input id="txt_confName" class="editable txt_long" pattern=".*[\S]+.*" required data-pattern-error="Cannot be only whitespaces" data-required-error="required"></input>
                             </div>
-                            <div class="help-block with-errors"></div>
+                            <div class="help-block with-errors col-sm-6 error-div"></div>
                         </div>
-                        <div id="div_regStart" class="row">
+                        <div id="div_regStart" class="row form-group">
                             <div class="col-sm-3">
                                 <label class="caption_label">Registration start date:</label>
                             </div>
                             <div class="col-sm-6">
-                                <input type="text" class="date editable"/>
-                                <input type="text" class="time editable"/>
+                                <input type="text" class="date editable" required data-required-error="required"/>
+                                <input type="text" class="time editable" required data-required-error="required"/>
                             </div>
+                            <div class="help-block with-errors col-sm-6 error-div"></div>
                         </div>
-                        <div id="div_regEnd" class="row">
+                        <div id="div_regEnd" class="row form-group">
                             <div class="col-sm-3">
                                 <label class="caption_label">Registration end date:</label>
                             </div>
                             <div class="col-sm-6">
-                                <input type="text" class="date editable"/>
-                                <input type="text" class="time editable"/>
+                                <input type="text" class="date editable" required data-required-error="required"/>
+                                <input type="text" class="time editable" required data-required-error="required"/>
                             </div>
+                            <div class="help-block with-errors col-sm-6 error-div"></div>
                         </div>
-                        <div id="div_absStart" class="row">
+                        <div id="div_absStart" class="row form-group">
                             <div class="col-sm-3">
                                 <label class="caption_label">Abstract start date:</label>
                             </div>
                             <div class="col-sm-6">
-                                <input type="text" class="date editable"/>
-                                <input type="text" class="time editable"/>
+                                <input type="text" class="date editable" required data-required-error="required"/>
+                                <input type="text" class="time editable" required data-required-error="required"/>
                             </div>
+                            <div class="help-block with-errors col-sm-6 error-div"></div>
                         </div>
-                        <div id="div_absEnd" class="row">
+                        <div id="div_absEnd" class="row form-group">
                             <div class="col-sm-3">
                                 <label class="caption_label">Abstract end date:</label>
                             </div>
                             <div class="col-sm-6">
-                                <input type="text" class="date editable"/>
-                                <input type="text" class="time editable"/>
+                                <input type="text" class="date editable" required data-required-error="required"/>
+                                <input type="text" class="time editable" required data-required-error="required"/>
                             </div>
+                            <div class="help-block with-errors col-sm-6 error-div"></div>
                         </div>
                         <div id="div_confEmail" class="row">
                             <div class="col-sm-3">
@@ -126,7 +129,7 @@
                         </div>
                         <div id="div_emailList" class="row">
                             <div class="col-sm-3">
-                                <label class="caption_label">Email List:</label>
+                                <label class="caption_label">Email CC list:</label>
                             </div>
                             <div class="col-sm-6">
                                 <input id="txt_EmailList" type="text" class="txt_long editable"/>
