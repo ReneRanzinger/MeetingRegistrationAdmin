@@ -5,6 +5,7 @@ $(function() {
     ajaxCall('GET', 'all_conferences', {}, null, allConferencesAjaxSuccess);
 
     $('#tbl_conferences').on('click', '.viewEditBtn', viewEditConference);
+    $('#tbl_conferences').on('click', '.showParticipantsBtn', showParticipants);
     $('#btn_addConf').on('click', newConference);
 });
 
@@ -36,7 +37,7 @@ function allConferencesAjaxSuccess(response) {
                 sortable: false,
                 formatter: function (value, row, index, field) {
                     return "<input type='image' class='table-btn viewEditBtn' src='resources/ViewEdit.png' alt='View/Edit' data-toggle='tooltip' data-trigger='hover' data-html='true' title='View<br>Conference' data-confid='" + row.id + "'/>\
-                    <input type='image' class='table-btn showParticipantsBtn' src='resources/Participants.png' alt='Show' data-toggle='tooltip' data-trigger='hover' title='Show Participants' data-confid='" + row.id + "'/>"
+                    <input type='image' class='table-btn showParticipantsBtn' src='resources/Participants.png' alt='Show' data-toggle='tooltip' data-trigger='hover' title='Show Participants' data-confid='" + row.id + "' data-confname='" + row.conferenceName + "'/>"
                 }
             }
         ],
@@ -52,6 +53,12 @@ function allConferencesAjaxSuccess(response) {
 function viewEditConference(e) {
     e.preventDefault();
     window.location = './conference.html?id=' + $(this).data('confid');
+}
+
+
+function showParticipants(e) {
+    e.preventDefault();
+    window.location = './participants.html?cid=' + $(this).data('confid') + '&cname=' + $(this).data('confname');
 }
 
 
