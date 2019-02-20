@@ -12,6 +12,7 @@
 
         <link rel="stylesheet" type="text/css" href="libraries/bootstrap/css/bootstrap.min.css">
         <link rel="stylesheet" type="text/css" href="libraries/bootstrap/css/bootstrap-table.min.css">
+        <link rel="stylesheet" type="text/css" href="libraries/jquery-ui/css/jquery-ui.min.css">
         <link rel="stylesheet" type="text/css" href="libraries/alertifyjs/css/alertify.css">
         <link rel="stylesheet" type="text/css" media="all" href="css/style.css ">
         <script type="text/javascript" src="libraries/jquery/jquery-3.1.js"></script>
@@ -22,6 +23,11 @@
         <script type="text/javascript" src="libraries/w3.js"></script>
         <script type="text/javascript" src="libraries/moment.min.js"></script>
         
+        <!-- Need to include jquery ui like this else bootstrap tooltips wont render properly -->
+        <script>var _tooltip = jQuery.fn.tooltip;</script>
+        <script type="text/javascript" src="libraries/jquery-ui/js/jquery-ui.min.js"></script>
+        <script>jQuery.fn.tooltip = _tooltip;</script>
+        
         <script type="text/javascript" src="js/utils.js"></script>
         <script type="text/javascript" src="js/participants.js"></script>
 
@@ -29,14 +35,31 @@
     <body>
         <div w3-include-html="header.html"></div>
 
-        <div class="container">
-            <!-- <div class="col-sm-12">
-                <input id="btn_addConf" type="button" class="generic-btn add-btn pull-right" value="   Add Conference"/>
-            </div> -->
-            <div id="div_participants">
+        <div id="div_participants" class="container container_custom full-width">
+            <div>
                 <h4>Showing participants for conference: <label id="lbl_confName"></label></h4>
-                <table id="tbl_participants"></table>        
             </div>
+            <div>
+                <input id="btn_download_participants" type="button" class="generic-btn download-btn pull-right" value="      Download Participants"/>
+            </div>
+            <div class="col-sm-12"><br></div>
+            <div>
+                <table id="tbl_participants"></table>
+            </div>
+        </div>
+        <div id="div_confirm_delete" class="container confirm_pop_up" title="Confirm Delete">
+            <span>To confirm deleting this participant please enter their participant ID(shown below) in the box and press confirm delete</span>
+            <br>
+            <p><h4>Participant Id:&nbsp;&nbsp;<label id="lbl_pid"></label></h4></p>
+            <input type="text" id="txt_pid"></input>
+            <br><br>
+            <input type="button" id="btn_confirm_delete" value="Confirm Delete"></input>
+            <br>
+            <label id="lbl_error" >Please make sure the ID matches the shown ID</label>
+        </div>
+        <div id="div_view_comments" class="container" title="Comments">
+            <h5>Participant ID: <label id="lbl_comment_pid"></label></h5>
+            <textarea id="ta_comment" rows="10" cols="80" disabled></textarea>
         </div>
 
         <script>w3.includeHTML();</script>

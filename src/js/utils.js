@@ -17,8 +17,8 @@ $(function() {
  * @returns URL for the requested type
  */
 function getWsUrl(request, {confId, feeId, promoId, participantId}={}) {
-    // var ws_base = "http://glycomics.ccrc.uga.edu/meetings/api/";
-	var ws_base = "http://localhost:8080/";
+    var ws_base = "http://glycomics.ccrc.uga.edu/meetings/api/";
+	// var ws_base = "http://localhost:8080/";
     
     var ws_base_conference = ws_base + "conference/";
     var ws_base_fee = ws_base + "fee/";
@@ -65,8 +65,11 @@ function getWsUrl(request, {confId, feeId, promoId, participantId}={}) {
         case "download_participants":
             return ws_base_participant + "download/" + confId;
             break;
-        case "delete_participants":
+        case "delete_participant":
             return ws_base_participant + "delete/" + participantId;
+            break;
+        case "update_participant":
+            return ws_base_participant + "update/" + participantId;
             break;        
         case "download_abstract":
             return ws_base_participant + "downloadAbstract/" + participantId;
@@ -86,7 +89,7 @@ function genericAjaxFailure(response) {
         callback = logout;
     }
     else if(response.status !== 0){
-        message = response.responseJSON.message || response.responseJSON.errors.toString();
+        message = response.responseJSON? response.responseJSON.message || response.responseJSON.errors.toString() : 'Some error occurred';
         callback = null;
     }
     alertify.alert().setting({
@@ -118,7 +121,26 @@ function ajaxCall(type, ws, wsParams, data, successFunction, failureFunction=gen
         if(typeof data !== 'string') {
             data = JSON.stringify(data);
         }
+        else {
+            ajaxConfig.headers['Content-Type'] = '';
+        }
         $.extend(ajaxConfig, {data: data})
+    }
+    $.ajax(ajaxConfig);
+}
+
+
+function ajaxFileDownload(ws, wsParams, dataType, successFunction, failureFunction=genericAjaxFailure) {
+    var token = window.localStorage.getItem("token") || '';
+    ajaxConfig = {
+        headers: {
+            'Accept': dataType,
+            'Authorization': token
+        },
+        url: getWsUrl(ws, wsParams),
+        method: 'GET',
+        success: successFunction,
+        error: failureFunction
     }
     $.ajax(ajaxConfig);
 }
