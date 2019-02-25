@@ -6,6 +6,9 @@ $(function() {
 
     $('#btn_download_participants').on('click', downloadParticipants)
 
+    $('#tbl_participants').on('click', '.commentsBtn', showComments);
+    $('#tbl_participants').on('change', '.paidCB', updatePayed);
+    $('#tbl_participants').on('click', '.absDownloadBtn', downloadAbstract);
     $('#tbl_participants').on('click', '.delParticipantBtn', deleteParticipant);
 
     //participant delete confirmation
@@ -20,8 +23,6 @@ $(function() {
     });
     $('#btn_confirm_delete').on('click', confirmDeleteParticipant);
 
-    $('#tbl_participants').on('click', '.commentsBtn', showComments);
-
     $('#div_view_comments').dialog({
         autoOpen: false,
         closeOnEscape: true,
@@ -32,17 +33,32 @@ $(function() {
         position: { my: "center" , at: "center center" }
     });
 
-    $('#tbl_participants').on('change', '.paidCB', updatePayed);
-
 });
+
+
+function downloadAbstract(e) {
+    var pid = $(this).data('pid');
+    var fileName = "Abstract_" + pid;
+    var mimeType = $(this).data('amt');
+
+    ajaxFileDownload('download_abstract', {participantId:pid}, fileName, mimeType);
+
+}
 
 
 function updatePayed(e) {
     var cb = $(e.target);
     var pid = cb.data('pid');
-    var status = cb.prop('checked').toString();
+    var status = cb.prop('checked');
+
+    if(status) {
+        cb.attr('title', 'Click to set<br>as unpaid').tooltip('fixTitle').tooltip('show');
+    }
+    else {
+        cb.attr('title', 'Click to set<br>as paid').tooltip('fixTitle').tooltip('show');
+    }
     
-    ajaxCall('PUT', 'update_participant', {participantId:pid}, status, function(response){} )
+    ajaxCall('PUT', 'update_participant', {participantId:pid}, status.toString(), function(response){});
 }
 
 
@@ -72,7 +88,6 @@ function downloadParticipants(e) {
 
 
 function deleteParticipant(e) {
-    e.preventDefault();
     $('#lbl_pid').text($(this).data('pid'));
     $('#lbl_error').hide();
     $('#div_confirm_delete').dialog('open');
@@ -139,23 +154,26 @@ function allParticipantsAjaxSuccess(response) {
                 sortable: true
             },
             {
+                field: 'fee',
                 title: 'Fee Details',
                 sortable: true,
                 formatter: function (value, row, index, field) {
-                    return row.fee.name + " ($" + row.fee.amount + ")"; 
+                    return value.name + " ($" + value.amount + ")"; 
                 }
             },
             {
+                field: 'registrationTime',
                 title: 'Registration Time',
                 formatter: function (value, row, index, field) {
-                    return moment(row.registrationTime).format("ddd, MMM D YYYY, H:mm:ss"); 
+                    return moment(value).format("ddd, MMM D YYYY, H:mm:ss"); 
                 },
                 sortable: true
             },
             {
+                field: 'comment',
                 title: 'Comments',
                 formatter: function (value, row, index, field) {
-                    return "<input type='image' class='table-btn commentsBtn' src='resources/Comments.png' alt='Comments' data-toggle='tooltip' data-trigger='hover' data-html='true' title='View<br>Comments' data-pid='" + row.participantId + "' data-comment='" + row.comment + "'/>";
+                    return value? "<input type='image' class='table-btn commentsBtn' src='resources/Comments.png' alt='Comments' data-toggle='tooltip' data-trigger='hover' data-html='true' title='View<br>Comments' data-pid='" + row.participantId + "' data-comment='" + value + "'/>" : "";
                 },
                 align: 'center'
             },
@@ -174,10 +192,12 @@ function allParticipantsAjaxSuccess(response) {
                 title: 'Actions',
                 sortable: false,
                 formatter: function (value, row, index, field) {
-                    return "<input type='image' class='table-btn absDownloadBtn' src='resources/DownloadAbstract.png' alt='Download Abstract' data-toggle='tooltip' data-trigger='hover' data-html='true' title='Download<br>Abstract' data-pid='" + row.participantId + "'/>\
-                    <input type='image' class='table-btn delParticipantBtn' src='resources/Delete.png' alt='Delete' data-toggle='tooltip' data-trigger='hover' title='Delete Participant' data-pid='" + row.participantId + "'/>"
+                    var absDownloadBtn = row.abstractTitle? "<input type='image' class='table-btn absDownloadBtn' src='resources/DownloadAbstract.png' alt='Download Abstract' data-toggle='tooltip' data-trigger='hover' data-html='true' title='Download<br>Abstract' data-pid='" + row.participantId + "' data-amt='" + row.abstractFileType + "'/>" : "";
+                    var delParticipantBtn = "<input type='image' class='table-btn delParticipantBtn' src='resources/Delete.png' alt='Delete' data-toggle='tooltip' data-trigger='hover' title='Delete Participant' data-pid='" + row.participantId + "'/>";
+                    return absDownloadBtn + delParticipantBtn;
                 },
-                width: '75'
+                width: '75',
+                align: 'center'
             }
         ],
         pagination: 20,
@@ -185,7 +205,10 @@ function allParticipantsAjaxSuccess(response) {
         sortName: 'participantId',
         formatNoMatches: function () {
             return 'No participants registered for this conference';
-        }
+        },
+        search: true,
+        trimOnSearch: false,
+        searchAlign: 'left'
     });
     $('[data-toggle="tooltip"]').tooltip();
 }

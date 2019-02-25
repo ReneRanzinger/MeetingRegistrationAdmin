@@ -17,8 +17,8 @@ $(function() {
  * @returns URL for the requested type
  */
 function getWsUrl(request, {confId, feeId, promoId, participantId}={}) {
-    var ws_base = "http://glycomics.ccrc.uga.edu/meetings/api/";
-	// var ws_base = "http://localhost:8080/";
+    // var ws_base = "http://glycomics.ccrc.uga.edu/meetings/api/";
+	var ws_base = "http://localhost:8080/";
     
     var ws_base_conference = ws_base + "conference/";
     var ws_base_fee = ws_base + "fee/";
@@ -106,6 +106,7 @@ function genericAjaxFailure(response) {
 function ajaxCall(type, ws, wsParams, data, successFunction, failureFunction=genericAjaxFailure) {
     var token = window.localStorage.getItem("token") || '';
     ajaxConfig = {
+        method: type,
         dataType: 'json',
         headers: {
             'Accept': 'application/json',
@@ -113,7 +114,6 @@ function ajaxCall(type, ws, wsParams, data, successFunction, failureFunction=gen
             'Authorization': token
         },
         url: getWsUrl(ws, wsParams),
-        method: type,
         success: successFunction,
         error: failureFunction
     }
@@ -121,26 +121,24 @@ function ajaxCall(type, ws, wsParams, data, successFunction, failureFunction=gen
         if(typeof data !== 'string') {
             data = JSON.stringify(data);
         }
-        else {
-            ajaxConfig.headers['Content-Type'] = '';
-        }
         $.extend(ajaxConfig, {data: data})
     }
     $.ajax(ajaxConfig);
 }
 
 
-function ajaxFileDownload(ws, wsParams, dataType, successFunction, failureFunction=genericAjaxFailure) {
+function ajaxFileDownload(ws, wsParams, fileName, mimeType) {
     var token = window.localStorage.getItem("token") || '';
     ajaxConfig = {
-        headers: {
-            'Accept': dataType,
-            'Authorization': token
-        },
-        url: getWsUrl(ws, wsParams),
         method: 'GET',
-        success: successFunction,
-        error: failureFunction
+        headers: {
+            'Authorization': token
+        },        
+        url: getWsUrl(ws, wsParams),
+        success: function(response) {
+            download(response, fileName);
+        },
+        error: genericAjaxFailure
     }
     $.ajax(ajaxConfig);
 }
