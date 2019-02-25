@@ -221,7 +221,7 @@ function saveConference() {
 function getDateTimeString(datetime_div) {
     var date = $(datetime_div + ' .date').val().replace("/", "-");
     date = (date.substring(6) + "-" + date.substring(0, 5));
-    var time = $(datetime_div + ' .time').val();
+    var time = $(datetime_div + ' .time').val() || "00:00:00";
     return date + " " + time;
 }
 
