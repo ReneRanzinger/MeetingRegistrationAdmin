@@ -33,6 +33,10 @@ input {
     line-height: 20px;
 }
 
+input::placeholder {
+    opacity: 0.6;
+}
+
 .txt_area {
     line-height: 20px;
     width: 650px;
