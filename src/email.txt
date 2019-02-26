@@ -1,0 +1,5 @@
+Dear ${user.firstName} ${user.lastName},
+
+Thank you for registering for the <meeting name> meeting, <year>, which will be held on <date>, in <location>. Your registration confirmation number is ${user.registrationId}.
+
+Click to add more to your email here...

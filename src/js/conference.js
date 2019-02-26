@@ -63,6 +63,14 @@ $(function() {
 
     $('.headerlink').removeClass('active');
     $('#li_conf_mgmt').addClass('active');
+    
+    $('#txt_EmailList').blur(function(e) {
+        var el = $(this);
+        if(el.val().slice(-1)===';') {
+            el.val(el.val().slice(0,-1));
+        }
+        $('#frm_conf').validator('validate');
+    });
 });
 
 
@@ -73,7 +81,14 @@ function existingConferenceSetup(confId) {
 
 function newConferenceSetup() {
     editConference();
-    hideExistingConferenceFields(true);        
+    hideExistingConferenceFields(true);
+    jQuery.get('email.txt', function(data) {
+        $('#ta_confirmationEmail').val(data);
+    });
+
+    $('#ta_confirmationEmail').focus(function(e) {
+        $(this).val($(this).val().replace('Click to add more to your email here...', ''));
+    });
 }
 
 

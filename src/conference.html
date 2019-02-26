@@ -121,19 +121,26 @@
                         </div>
                         <div id="div_confEmail" class="row">
                             <div class="col-sm-3">
-                                <label class="caption_label">Confirmation Email:</label>
+                                <label class="caption_label">Confirmation Email:<br><br>
+                                    (Please include<br>
+                                    in the email body:<br>
+                                    ${user.firstName},<br>
+                                    ${user.lastName},<br>
+                                    ${user.registrationId})
+                                </label>
                             </div>
                             <div class="col-sm-6">
                                 <textarea id="ta_confirmationEmail" class="txt_area editable"></textarea>
                             </div>
                         </div>
-                        <div id="div_emailList" class="row">
+                        <div id="div_emailList" class="row form-group">
                             <div class="col-sm-3">
                                 <label class="caption_label">Email CC list:</label>
                             </div>
                             <div class="col-sm-6">
-                                <input id="txt_EmailList" type="text" class="txt_long editable" placeholder="Separate email addresses with a ;"/>
+                                <input id="txt_EmailList" type="text" class="txt_long editable" placeholder="Enter email address(es) separated by a ;" pattern="^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5}){1,25}(;[ ]{0,1}([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5}){1,25})*$" data-pattern-error="Invalid email(s) or not sperated by ;"/>
                             </div>
+                            <div class="help-block with-errors col-sm-6 error-div"></div>
                         </div>
                         <div id="div_talks" class="row">
                             <div class="col-sm-3">
@@ -170,3 +177,6 @@
         </form>
     </body>
 </html>
+
+
+<!-- (\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z0-9]{2,4}){1}((;{1}\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z0-9]{2,4})|;)* -->
