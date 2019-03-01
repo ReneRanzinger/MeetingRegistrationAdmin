@@ -36,13 +36,19 @@ $(function() {
 });
 
 
+function downloadParticipants(e) {
+    var confId = getUrlParameter('cid');
+    var fileName = $('#lbl_confName').text();
+    var mimeType = 'application/vnd.ms-excel';
+    ajaxFileDownload('download_participants', {confId:confId}, fileName, mimeType);
+}
+
+
 function downloadAbstract(e) {
     var pid = $(this).data('pid');
     var fileName = "Abstract_" + pid;
     var mimeType = $(this).data('amt');
-
     ajaxFileDownload('download_abstract', {participantId:pid}, fileName, mimeType);
-
 }
 
 
@@ -80,13 +86,6 @@ function populateParticipants() {
 }
 
 
-function downloadParticipants(e) {
-    var confId = getUrlParameter('cid');
-    window.open(getWsUrl('download_participants', {confId:confId}), '_blank');
-    // ajaxFileDownload('download_participants', {confId:confId}, 'application/vnd.ms-excel;charset=UTF-8', downloadParticipantsAjaxSuccess)
-}
-
-
 function deleteParticipant(e) {
     $('#lbl_pid').text($(this).data('pid'));
     $('#lbl_error').hide();
@@ -104,16 +103,6 @@ function confirmDeleteParticipant(e) {
     else {
         $('#lbl_error').show();
     }
-}
-
-
-function downloadParticipantsAjaxSuccess(response) {
-    var windowUrl = window.URL || window.webkitURL;
-    var url = windowUrl.createObjectURL(response);
-    var anchor = $(document.createElement('a'));
-    anchor.prop('href', url);
-    anchor.get(0).click();
-    windowUrl.revokeObjectURL(url);
 }
 
 

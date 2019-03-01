@@ -133,10 +133,13 @@ function ajaxFileDownload(ws, wsParams, fileName, mimeType) {
         method: 'GET',
         headers: {
             'Authorization': token
-        },        
+        },
+        xhrFields: {
+            responseType: 'blob'
+        },       
         url: getWsUrl(ws, wsParams),
         success: function(response) {
-            download(response, fileName);
+            download(response, fileName, mimeType);
         },
         error: genericAjaxFailure
     }
