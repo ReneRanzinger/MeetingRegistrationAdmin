@@ -87,7 +87,7 @@ function newConferenceSetup() {
     });
 
     $('#ta_confirmationEmail').focus(function(e) {
-        $(this).val($(this).val().replace('Click to add more to your email here...', ''));
+        $(this).val($(this).val().replace("Please remember to replace the tags enclosed within '<>' with actual values. Click to add more to your email here...", ""));
     });
 }
 

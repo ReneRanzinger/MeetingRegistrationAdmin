@@ -2,9 +2,20 @@ $(function() {
     $('.headerlink').removeClass('active');
     $('#li_participants').addClass('active');
 
-    populateParticipants();
+    var confId = getUrlParameter('cid');
+    if(confId) {
+        $('#div_no_conf').hide();
+        var confName = getUrlParameter('cname');
+        $('#lbl_confName').text(confName);
+        populateParticipants(confId);
+    }
+    else {
+        $('#div_conf_participants').hide();
+    }
 
-    $('#btn_download_participants').on('click', downloadParticipants)
+    $('#btn_get_conf').on('click', getConferenceParticipants);
+
+    $('#btn_download_participants').on('click', downloadParticipants);
 
     $('#tbl_participants').on('click', '.commentsBtn', showComments);
     $('#tbl_participants').on('change', '.paidCB', updatePayed);
@@ -34,6 +45,12 @@ $(function() {
     });
 
 });
+
+
+function getConferenceParticipants(e) {
+    var confId = $('#txt_confId').val();
+    ajaxCall('GET', 'conference_details', {confId:confId}, null, confDetailsAjaxSuccess);
+}
 
 
 function downloadParticipants(e) {
@@ -77,11 +94,7 @@ function showComments(e) {
 }
 
 
-function populateParticipants() {
-    var confId = getUrlParameter('cid');
-    var confName = getUrlParameter('cname');
-    $('#lbl_confName').text(confName);
-
+function populateParticipants(confId) {
     ajaxCall('GET', 'all_participants', {confId:confId}, null, allParticipantsAjaxSuccess);
 }
 
@@ -200,4 +213,12 @@ function allParticipantsAjaxSuccess(response) {
         searchAlign: 'left'
     });
     $('[data-toggle="tooltip"]').tooltip();
+}
+
+
+function confDetailsAjaxSuccess(response) {
+    $('#lbl_confName').text(response.conferenceName);
+    $('#div_no_conf').hide();
+    $('#div_conf_participants').show();
+    populateParticipants(response.conferenceId);
 }
