@@ -2,20 +2,37 @@ $(function() {
     $('#div_regStart .date').datepicker({
         format: 'mm/dd/yyyy',
         autoclose: true
+    }).on('changeDate', function(e) {
+        $('#div_regEnd .date').datepicker('setStartDate', e.date);
     });
 
     $('#div_regEnd .date').datepicker({
         format: 'mm/dd/yyyy',
         autoclose: true
+    }).on('changeDate', function(e) {
+        $('#div_regStart .date').datepicker('setEndDate', e.date);
     });
 
     $('#div_regStart .time').timepicker({
         timeFormat: 'H:i:s',
-        step: 30,
-    });
+        maxTime: '11:30pm',
+        step: 30
+    })
+    // if required for past time disabling, not enough as date changes must also affect this
+    // .on('changeTime', function(e) {
+    //     var startDate = $('#div_regStart .date').datepicker('getDate');
+    //     var endDate = $('#div_regEnd .date').datepicker('getDate');
+    //     if(endDate-startDate == 0) {
+    //         $('#div_regEnd .time').timepicker('option', 'minTime', $('#div_regStart .time').timepicker('getTime'));
+    //     }
+    //     else {
+    //         $('#div_regEnd .time').timepicker('option', 'minTime', '00:00:00');
+    //     }
+    // });
 
     $('#div_regEnd .time').timepicker({
         timeFormat: 'H:i:s',
+        maxTime: '11:30pm',
         step: 30,
     });
 
@@ -23,11 +40,15 @@ $(function() {
     $('#div_absStart .date').datepicker({
         format: 'mm/dd/yyyy',
         autoclose: true
+    }).on('changeDate', function(e) {
+        $('#div_absEnd .date').datepicker('setStartDate', e.date);
     });
 
     $('#div_absEnd .date').datepicker({
         format: 'mm/dd/yyyy',
         autoclose: true
+    }).on('changeDate', function(e) {
+        $('#div_absStart .date').datepicker('setEndDate', e.date);
     });
 
     $('#div_absStart .time').timepicker({
