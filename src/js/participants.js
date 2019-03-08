@@ -127,6 +127,9 @@ function deleteParticipantAjaxSuccess() {
 
 function allParticipantsAjaxSuccess(response) {
     $('#tbl_participants').bootstrapTable('destroy');
+    for (var i=0; i<response.length; i++) {
+        response[i].fullName = response[i].title + " " + response[i].firstName + " " + (response[i].middleName? response[i].middleName + " ": "") + response[i].lastName;
+    }
     $('#tbl_participants').bootstrapTable({
         columns: [
             {
@@ -135,11 +138,9 @@ function allParticipantsAjaxSuccess(response) {
                 sortable: true
             },
             {
+                field: 'fullName',
                 title: 'Full Name',
                 sortable: true,
-                formatter: function (value, row, index, field) {
-                    return row.title + " " + row.firstName + " " + row.middleName + " " + row.lastName; 
-                }
             },
             {
                 field: 'institution',
