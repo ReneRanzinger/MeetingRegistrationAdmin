@@ -1,3 +1,4 @@
+var changed;
 $(function() {
     $('#div_regStart .date').datepicker({
         format: 'mm/dd/yyyy',
@@ -92,6 +93,13 @@ $(function() {
         }
         $('#frm_conf').validator('validate');
     });
+
+    //unsaved alert
+    changed = false;
+    $(document).on('change', ':input', function() {
+        changed = true;
+    });
+    window.onbeforeunload = unloadPage;
 });
 
 
@@ -344,6 +352,7 @@ function confDetailsAjaxSuccess(response) {
     $('#cb_talks').bootstrapToggle(response.shortTalks? 'on': 'off')
 
     disableEditableFields(true);
+    changed = false;
 }
 
 
@@ -366,4 +375,11 @@ function newConfAjaxFailure(response) {
 function ajaxSuccessRefreshConference(response) {
     var confId = $('#lbl_confId_val').text();
     existingConferenceSetup(confId);
+}
+
+
+function unloadPage(e){ 
+    if(changed){
+        return true;
+    }
 }
