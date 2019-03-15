@@ -16,6 +16,7 @@ $(function() {
     $('#btn_get_conf').on('click', getConferenceParticipants);
 
     $('#btn_download_participants').on('click', downloadParticipants);
+    $('#btn_download_abstracts').on('click', downloadAbstracts);
 
     $('#tbl_participants').on('click', '.commentsBtn', showComments);
     $('#tbl_participants').on('change', '.paidCB', updatePayed);
@@ -55,9 +56,17 @@ function getConferenceParticipants(e) {
 
 function downloadParticipants(e) {
     var confId = getUrlParameter('cid');
-    var fileName = $('#lbl_confName').text();
+    var fileName = $('#lbl_confName').text() + '_participants';
     var mimeType = 'application/vnd.ms-excel';
     ajaxFileDownload('download_participants', {confId:confId}, fileName, mimeType);
+}
+
+
+function downloadAbstracts(e) {
+    var confId = getUrlParameter('cid');
+    var fileName = $('#lbl_confName').text() + '_abstracts';
+    var mimeType = 'application/zip';
+    ajaxFileDownload('download_abstracts', {confId:confId}, fileName, mimeType);
 }
 
 

@@ -1,3 +1,7 @@
+.padded {
+    padding-bottom: 5px;
+}
+
 .full-width {
     margin-left: 50px;
     width: 93%;
@@ -63,9 +67,15 @@ input::placeholder {
     height: 25px;
 }
 
-.download-btn {
+.download-p-btn {
     background: url('../resources/DownloadParticipants.png') no-repeat left;
     background-size: 35px 35px;
+    border: 0px;
+}
+
+.download-a-btn {
+    background: url('../resources/DownloadAbstracts.png') no-repeat left;
+    background-size: 20px 20px;
     border: 0px;
 }
 

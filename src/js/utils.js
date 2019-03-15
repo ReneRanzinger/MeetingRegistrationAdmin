@@ -65,6 +65,9 @@ function getWsUrl(request, {confId, feeId, promoId, participantId}={}) {
         case "download_participants":
             return ws_base_participant + "download/" + confId;
             break;
+        case "download_abstracts":
+            return ws_base_participant + "downloadAllAbstracts/" + confId;
+            break;
         case "delete_participant":
             return ws_base_participant + "delete/" + participantId;
             break;
