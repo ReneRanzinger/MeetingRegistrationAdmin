@@ -121,17 +121,12 @@
                         </div>
                         <div id="div_confEmail" class="row">
                             <div class="col-sm-3">
-                                <label class="caption_label">Confirmation Email:<br><br>
-                                    (Please include<br>
-                                    in the email body:<br>
-                                    ${user.firstName},<br>
-                                    ${user.lastName},<br>
-                                    ${user.registrationId})
-                                </label>
+                                <label class="caption_label">Confirmation Email:</label>
                             </div>
-                            <div class="col-sm-6">
+                            <div class="col-sm-6 zero_line_height">
                                 <textarea id="ta_confirmationEmail" class="txt_area editable"></textarea>
-                            </div>
+                                <label class='note'>Remember to include ${user.firstName}, ${user.lastName}, ${user.registrationId} in the email body!</label>
+                            </div>                                  
                         </div>
                         <div id="div_emailList" class="row form-group">
                             <div class="col-sm-3">
