@@ -5,6 +5,7 @@ $(function() {
         autoclose: true
     }).on('changeDate', function(e) {
         $('#div_regEnd .date').datepicker('setStartDate', e.date);
+        $('#div_regStart .time').timepicker('setTime', '00:00:00');
     });
 
     $('#div_regEnd .date').datepicker({
@@ -12,6 +13,7 @@ $(function() {
         autoclose: true
     }).on('changeDate', function(e) {
         $('#div_regStart .date').datepicker('setEndDate', e.date);
+        $('#div_regEnd .time').timepicker('setTime', '23:59:59');
     });
 
     $('#div_regStart .time').timepicker({
@@ -43,6 +45,7 @@ $(function() {
         autoclose: true
     }).on('changeDate', function(e) {
         $('#div_absEnd .date').datepicker('setStartDate', e.date);
+        $('#div_absStart .time').timepicker('setTime', '00:00:00');
     });
 
     $('#div_absEnd .date').datepicker({
@@ -50,6 +53,7 @@ $(function() {
         autoclose: true
     }).on('changeDate', function(e) {
         $('#div_absStart .date').datepicker('setEndDate', e.date);
+        $('#div_absEnd .time').timepicker('setTime', '23:59:59');
     });
 
     $('#div_absStart .time').timepicker({
@@ -244,10 +248,10 @@ function saveConference() {
 
     var conf_json = {
         conferenceName: $('#txt_confName').val().trim(),
-        registrationStartDate: getDateTimeString('#div_regStart'),
-        registrationEndDate: getDateTimeString('#div_regEnd'),
-        abstractStartDate: getDateTimeString('#div_absStart'),
-        abstractEndDate: getDateTimeString('#div_absEnd'),
+        registrationStartDate: getDateTimeString('#div_regStart', true),
+        registrationEndDate: getDateTimeString('#div_regEnd', false),
+        abstractStartDate: getDateTimeString('#div_absStart', true),
+        abstractEndDate: getDateTimeString('#div_absEnd', false),
         confirmationEmail: $('#ta_confirmationEmail').val(),
         emailList: $('#txt_EmailList').val().trim(),
         shortTalks: $('#cb_talks').prop('checked')
@@ -262,10 +266,11 @@ function saveConference() {
 }
 
 
-function getDateTimeString(datetime_div) {
+function getDateTimeString(datetime_div, isStart) {
     var date = $(datetime_div + ' .date').val().replace("/", "-");
     date = (date.substring(6) + "-" + date.substring(0, 5));
-    var time = $(datetime_div + ' .time').val() || "00:00:00";
+    var defaultTime = isStart? "00:00:00" : "23:59:59";
+    var time = $(datetime_div + ' .time').val() || defaultTime;
     return date + " " + time;
 }
 
