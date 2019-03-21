@@ -130,7 +130,8 @@ function confirmDeleteParticipant(e) {
 
 function deleteParticipantAjaxSuccess() {
     $('#div_confirm_delete').dialog('close');
-    populateParticipants();
+    var confId = getUrlParameter('cid');
+    populateParticipants(confId);
 }
 
 
